@@ -1,0 +1,9 @@
+body{
+  font-family: Arial,Verdana,Tahoma,"Hiragino Sans GB",Microsoft YaHei,SimSun,sans-serif;
+  line-height: 1.5;
+}
+image{
+  display:block;
+  width:auto;
+  height:auto;
+}

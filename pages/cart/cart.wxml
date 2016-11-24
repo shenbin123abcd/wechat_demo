@@ -1,0 +1,46 @@
+<view class="loading" wx:if='{{data==null}}'>正在加载中...</view>
+<view class="shopCart-container" wx:else>
+    <view class="shopCart-container-list">
+        <view class="shopCart-container-list-item" 
+            wx:for="{{data.goods}}" 
+            wx:key="{{key}}"
+            bindtap="handleChoose"
+            data-goods_id="{{item.goods_id}}"
+        >
+            <view class="item-choose">
+                <image src="../../images/choose-btn.png" wx:if="{{item.isChoose}}"></image>
+                <view class='no-choose-circle' wx:else></view>
+            </view>
+            <view class="item-content">
+                <view class="item-content-pic">
+                    <image src="{{item.cover}}"></image>
+                </view>
+                <view class="item-content-info">
+                    <view class="title">{{item.name}}</view>
+                    <view class="subtitle">{{item.subtitle}}</view>
+                    <view class="price-wrapper">
+                        <view class="price">￥<text style="font-size:32rpx;">{{item.sell_price_f}}</text>.{{item.sell_price_a}}</view>
+                        <view class="num">X {{item.num}}</view>
+                    </view>
+                </view>
+                <view class="item-content-line"></view>
+            </view>
+        </view>
+    </view>
+    <view class="shopCart-bottom-btn">
+        <view class="all-choose-btn" bindtap="handleAllChoose">
+            <view class="no-choose" wx:if="{{data.allChoose==false}}"></view>
+            <view wx:else class="all-choose"><image src='../../images/choose-btn.png'></image></view>
+            <view class="text">全选</view>
+        </view>
+        <view class="bottom-btn-right">
+            <view class="pay-text">
+                <text class="text">实际付款：</text>
+                <text class="total-price">￥{{data.total_price}}</text>    
+            </view>
+            <view class="pay-btn">
+                去支付
+            </view>
+        </view>
+    </view>
+</view>

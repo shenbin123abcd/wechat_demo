@@ -1,0 +1,33 @@
+<view class="login-container">
+    <view class="login-pic-block">
+        <image class="pic" src="../../images/logo.png"></image>
+    </view>
+
+    <view class="login-form-block">
+        <form bindsubmit="formSubmit">
+            <view class="form-item">
+                <view class="input-icon">
+                    <image src="../../images/icon1.png"></image>
+                </view>
+                <input placeholder="幻熊通行证(手机号)" class="input-style" name="phone">
+                    <view class="line"></view>
+                </input>
+            </view>
+            <view class="form-item" style="margin-top:25rpx;">
+                <view class="input-icon">
+                    <image src="../../images/icon2.png"></image>
+                </view>
+                <input placeholder="密码" class="input-style" name="password" type="password">
+                    <view class="line"></view>
+                </input>
+            </view>
+            <button class="submit-btn" formType='submit'>
+                登录
+            </button>
+        </form>
+        <view class="another-link">
+            <text class="register">立即注册</text>
+            <text>忘记密码</text>
+        </view>
+    </view>
+</view>

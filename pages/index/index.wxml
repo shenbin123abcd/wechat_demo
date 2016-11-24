@@ -1,0 +1,59 @@
+<!--index.wxml-->
+<view class="index-container" style="overflow-y:hidden;">
+  <view class="index-nav">
+    <view class="nav-user nav-icon" bindtap="handleLink" data-url='user'>
+        <image src="../../images/icon3.png"></image>
+    </view>
+    <view class="nav-shopcart nav-icon" bindtap="handleLink" data-url='cart'>
+      <image src="../../images/icon4.png"></image>
+    </view>
+  </view>
+
+  <view class="index-timeout" >
+    <text class="timeout-text">距离下次上新还剩 <text class="timeout-day">{{d}}</text> 天</text>
+    <view class='timeout-block'>
+      <view class="timeout-block-item">{{h}}</view>
+      <view class="timeout-block-point"> : </view>
+      <view class="timeout-block-item">{{m}}</view>
+      <view class="timeout-block-point"> : </view>
+      <view class="timeout-block-item">{{s}}</view>
+    </view>
+  </view>
+
+  <scroll-view style="height:{{window_height-79}}px;" 
+    bindscrolltolower='handleLower' 
+    scroll-y="{{!isLoading}}" 
+    bindscroll="handleScroll"
+    scroll-top="{{scroll_top}}"
+  >
+    <view class="index-content">
+      <view wx:if="{{!pageData}}" class="page-init-loading">正在加载中...</view>
+      <view wx:else>
+         <view class="index-content-item" wx:for="{{pageData.list}}" wx:key="{{item.id}}">
+            <navigator url="../detail/detail?id={{item.id}}">
+                  <view class="index-content-pic">
+                      <image class='content-image' src='{{item.cover}}'></image>
+                      <image class='content-icon' src="../../images/d3.png"></image>
+                  </view>
+                  <view class="index-content-text">
+                      <view class="content-text-left">
+                        <view class="content-text-left-top">{{item.name}}</view>
+                        <view class="content-text-left-bottom">{{item.subtitle}}</view>
+                      </view>
+                      <view class="content-text-right">
+                          <view class="content-text-right-top"><text class="text-right-top-icon">￥</text>{{item.sell_price}}</view>
+                          <view class="content-text-right-bottom">原价: ¥{{item.market_price}}</view>
+                      </view>
+                  </view>
+              </navigator>
+          </view>
+          <view class="page-init-loading" wx:if="{{isLoading}}">正在加载中...</view>
+      </view> 
+    </view>
+    <view class="backUp-btn" wx:if="{{scroll}}" bindtap='handleBackTop'>
+      <image src='../../images/go-up.png'></image>
+    </view>
+  </scroll-view>
+
+  
+</view>

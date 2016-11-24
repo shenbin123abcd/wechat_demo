@@ -1,0 +1,151 @@
+<view class="detail-container">
+    <view class='detail-nav'>
+        <view class="nav-user nav-icon" bindtap='handleLink'>
+            <image src="../../images/icon4.png"></image>
+            <view class="shopCart-num" wx:if="{{shop_cart}}">
+                <view class="wrapper">
+                    <view class="num">{{shop_cart}}</view>
+                </view>
+            </view>
+        </view>
+        <view class="nav-shopcart nav-icon">
+            <image src="../../images/icon5.png"></image>
+        </view>
+    </view>
+    <view class="page-loading" wx:if="{{!data}}">加载中...</view>
+    <view wx:else class="detail-content">
+        <view class="detail-content-top">
+            <view class="content-top-pic"><image class="pic" src="{{data.cover}}"></image></view>
+            <view class="content-top-title">
+                <view class="top-title-left">
+                    <view class="title">{{data.name}}</view>
+                    <view class="subtitle">{{data.subtitle}}</view>
+                </view>
+                <view bindtap='handleFavor'>
+                    <view class="top-title-right" wx:if="{{!isFavor}}">
+                        <image src="../../images/icon6.png"></image>
+                    </view>
+                    <view class="top-title-right" wx:else>
+                        <image src="../../images/icon7.png"></image>
+                    </view>
+                </view>
+            </view>
+        </view>
+
+        <view class="detail-content-block">
+            <view class="content-block-item" wx:for="{{data.images}}" wx:key="{{index}}">
+                <view class="content-block-item-pic"><image src="{{item.src}}"></image></view>
+                <view class='content-block-item-text'>{{item.text}}</view>
+            </view>
+        </view>   
+
+        <view class="detail-content-video">
+            <view 
+                class="detail-content-video-item" 
+                wx:if="{{item.type!=='vr_out' || item.type!=='vr'}}"
+                wx:for="{{videoData}}" 
+                wx:key="{{index}}"
+                data-type="{{item.type}}"
+                bindtap="handlePlayVideo"
+            >
+                <video wx:if="{{item.isPlay}}" src="{{item.src}}" controls="{{true}}"></video>
+                <view wx:else class="video-fake-block">
+                    <image src="{{item.cover}}"></image>
+                    <view class="mask-cover"></view>
+                    <view class="mask-cover-play-btn">
+                        <image wx:if="{{item.type=='quanan'}}" class="btn" src="../../images/quanan.png"></image>
+                        <image wx:if="{{item.type=='dajian'}}" class="btn" src="../../images/dajian.png"></image>
+                    </view>
+                </view>
+            </view>
+        </view>
+
+        <view class="detail-content-desc">
+            <view class="detail-content-desc-title">
+                <text class="line-l">——</text>
+                <text>本价格包含</text>    
+                <text class="line-r">——</text>
+            </view>
+            <view class="detail-content-desc-pic">
+                <view class='content-desc-pic-item' wx:for="{{data.content}}" wx:key="{{index}}">
+                    <image src="{{item.src}}" mode='aspectFit' style="width:100%;height:{{item.styleHeight}}px;"></image>
+                </view>
+            </view>
+        </view>
+
+        <view class='detail-content-warn'>
+            <view class="content-warn-title">
+                <image src='../../images/warn.png'></image>
+            </view>
+            <view class="content-warn-text">
+                <view class="text">
+                    幻熊出品的策划方案中的所有内容，包括但不限于文字、照片、影像、插图、视频等素材，均受《中华人民共和国著作权法》、《中华人民共和国著作权法实施细则》及国际著作权公约的保护，其完整著作权属于幻熊科技有限公司所有或其他授权幻熊科技有限公司使用的内容提供者所有。
+                </view>
+                <view class="text"style="margin-top: 40rpx;">
+                    购买者不得将策划方案用于任何商业用途，包括但不限于转卖、复印、再版、技术加盟、品牌加盟等方式。由于产品的特殊性，请您在下单时务必留下准确的联系方式，我们将在第一时间与您取得联系，安排快递及软件安装等事宜。本产品为限售产品，一经售出，恕不退货。
+                </view>
+            </view>
+        </view>
+
+        <view class="detail-fixed-bottom-btn">
+            <view class="container">
+                <view class="fixed-bottom-btn-icon left" bindtap="handleModalOpen" data-type="shopCart">
+                    <image src="../../images/icon8.png"></image>
+                    <view class="line left"></view>
+                </view>
+                <view class="fixed-bottom-btn-buy" bindtap="handleModalOpen" data-type="buy">
+                    <view class="text">确认购买</view>
+                    <view class="price">￥<text style='font-size:34rpx;'>{{data.sell_price_round}}</text>.{{data.sell_price_decimal}}</view>
+                </view>
+                <view class="fixed-bottom-btn-icon right">
+                    <image src="../../images/icon9.png" style="width:43rpx;"></image>
+                    <view class="line right"></view>
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <view class="detail-fixed-bottom-modal" wx:if="{{ifShowModal}}">
+        <view class="fixed-bottom-modal-mask" catchtap="closeModal"></view>
+        <view class="fixed-bottom-modal-content" style='transform:translateY({{modal_height}});' animation='{{animationData}}'>
+            <view class='bottom-modal-content-title'>
+                <view class="close" bindtap="closeModal">
+                    <image src="../../images/close.jpg"></image>
+                </view>
+                <view class="pic">
+                    <image src="{{data.cover}}"></image>
+                </view>
+                <view class="text">
+                    <view class="title">{{data.name}}</view>
+                    <view class="subtitle">{{data.subtitle}}</view>
+                    <view class="fixed-bottom">
+                        <text class='price'>￥<text class="sell_price">599</text>.00</text>
+                        <text class="spec">库存：4999件</text>
+                    </view>
+                </view>
+            </view>
+            <view class="bottom-modal-content-info">
+                <view class="bottom-modal-content-info-num">
+                    <view class="text">数量</view>
+                    <view class="btn">
+                        <view class="minus">-</view>
+                        <view class="num">1</view>
+                        <view class="add">+</view>
+                    </view>
+                </view>
+                <scroll-view scroll-y="true" style="height:{{scroll_height}}px;">
+                    <view class="bottom-modal-content-info-type">
+                        <view class="text">类型</view>
+                        <view class="type">
+                            <view class="desc">高级款(包含3D体验)</view>
+                            <view class="desc active">专业款(不包含3D体验)</view>
+                        </view>
+                    </view>
+                </scroll-view>
+            </view>
+            <view class="bottom-modal-content-footer" wx:if="{{buy}}" data-id="{{data.id}}" catchtap='handleBuy'>确认购买</view>
+            <view class="bottom-modal-content-footer" wx:if="{{shopCart}}" catchtap="handleIntoCart">加入购物车</view>
+        </view>
+    </view>
+
+</view>

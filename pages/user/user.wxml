@@ -1,0 +1,41 @@
+<view class="init-loading" wx:if="{{res==null}}">正在加载中...</view>
+<view class="user-container" wx:else>
+    <view class="user-info">
+        <view class="user-info-avatar"><image src="{{res.user.avatar}}"></image></view>
+        <view class="user-info-name">{{res.user.name}}</view>
+    </view>
+    <view class="user-send-info">
+        <view class="user-send-info-item">
+            <view class="item-pic">
+                <image src="../../images/user1.png"></image>
+                <view class="item-num" wx:if="{{res.pay>0}}">{{res.pay}}</view>
+            </view>
+            <view class="item-text">待付款</view>
+        </view>
+        <view class="user-send-info-item">
+            <view class="item-pic">
+                <image src="../../images/user2.png"></image>
+                <view class="item-num" wx:if="{{res.send>0}}">{{res.send}}</view>
+            </view>
+            <view class="item-text">待发货</view>
+        </view>
+        <view class="user-send-info-item">
+            <view class="item-pic">
+                <image src="../../images/user3.png"></image>
+                <view class="item-num" wx:if="{{res.receive>0}}">{{res.receive}}</view>
+            </view>
+            <view class="item-text">待收货</view>
+        </view>
+    </view>
+    <view class='user-link-list' wx:for="{{list}}" wx:key="{{index}}">
+        <view class="user-link-list-item" wx:for="{{item}}" wx:key="{{index}}">
+            <view class="left">
+                <image src="{{item.img}}"></image>
+                <text>{{item.text}}</text>
+            </view>
+            <view class="right">
+                <image src="../../images/user5.png"></image>
+            </view>
+        </view>
+    </view>
+</view>
